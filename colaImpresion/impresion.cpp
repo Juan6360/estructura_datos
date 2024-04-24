@@ -1,21 +1,18 @@
-#include <unistd.h>
 #include "iostream"
 #include "queue"
+#include "fstream"
+#include "thread"
+#include "chrono"
 using namespace std;
-
-// Estructura del archivo
-struct Archivo{
-    string nombre;
-    queue<int> hojas;
-};
+using namespace std::chrono_literals;
 
 // Funcion responsable de la creacion de archivos
-void creacionDeArchivos(queue<Archivo>& archivo){
+void creacionDeArchivos(queue<string>& archivo){
 
     // Variable que almacena el nombre del archivo
     string nombre;
     // Variable que almacena la cantidad de hojas
-    int hojas;
+    string contenido;
 
     // Loop para la creacion de archivos consecutivos
     while(true) {
@@ -28,39 +25,40 @@ void creacionDeArchivos(queue<Archivo>& archivo){
             return;
         }
 
-        cout << "Hojas a imprimir: " << endl;
-        cin >> hojas;
+        cout << "Contenido: " << endl;
 
-        // Variable que almacena el archivo a crear
-        Archivo nuevoArchivo;
-        nuevoArchivo.nombre = nombre;
+        fstream myFile;
+        myFile.open(nombre, ios::out); // Write
+        if (myFile.is_open()){
+            while (true){
+                getline(cin, contenido);
 
-        // Creacion de las hojas del archivo
-        for (int i = 0; i < hojas; i++) {
-            nuevoArchivo.hojas.push(i+1);
+                if (contenido.empty()){
+                    break;
+                }
+                myFile << contenido << endl;
+            }
+            myFile.close();
+            archivo.push(nombre);
         }
-
-        // Se añade a la fila el archivo finalizado
-        archivo.push(nuevoArchivo);
     }
 }
 
 // Funcion responsable de la impresion
-void impresion(queue<Archivo>& archivo){
-
+void impresion(queue<string>& archivo){
     // Loop que itera por todos los archivos
     while (!archivo.empty()) {
         fflush(stdin);
-        cout << "Titulo: " << archivo.front().nombre << endl;
+        string nombre = archivo.front();
+        cout << "Titulo: " << nombre << endl;
 
-        // Loop que itera entre las hojas del archivo
-        while(!archivo.front().hojas.empty()) {
-            fflush(stdin);
-            cout << "Imprimiendo pag." << archivo.front().hojas.front() << "..." << endl;
-
-            // Eliminacion de las hojas
-            archivo.front().hojas.pop();
-            sleep(2);
+        ifstream myFile(nombre);
+        if (myFile.is_open()){
+            char character;
+            while (myFile.get(character)){
+                cout << character;
+                this_thread::sleep_for(500ms);
+            }
         }
         cout << "" << endl;
 
@@ -72,7 +70,7 @@ void impresion(queue<Archivo>& archivo){
 int main(){
 
     // Creacion de la cola de impresion
-    queue<Archivo> colaDeImpresion;
+    queue<string> colaDeImpresion;
 
     while(true){
 
