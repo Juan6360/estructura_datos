@@ -13,16 +13,16 @@ struct Producto {
 // Función encargada de imprimir la maquina
 void maquina(const vector<Producto>& productos){
     cout << "------------- ------------" << endl;
-    cout << "|    " << productos[0].codigo << "    | |    " << productos[1].codigo << "   |" << endl;
-    cout << "| " << productos[0].nombre << " | |   " << productos[1].nombre << "  |" << endl;
+    cout << "|    " << productos[0].codigo << "   | |    " << productos[1].codigo << "  |" << endl;
+    cout << "|  " << productos[0].nombre << "(" << productos[0].unidades.top() << ")" << "  | | " << productos[1].nombre << "(" << productos[1].unidades.top() << ")" << " |" << endl;
     cout << "|   " << productos[0].precio << "    | |    " << productos[1].precio << "  |" << endl;
     cout << "------------- ------------" << endl;
-    cout << "|    " << productos[2].codigo << "    | |    " << productos[3].codigo << "   |" << endl;
-    cout << "|  " << productos[2].nombre << "   | |   " << productos[3].nombre << "  |" << endl;
+    cout << "|    " << productos[2].codigo << "   | |    " << productos[3].codigo << "  |" << endl;
+    cout << "| " << productos[2].nombre << "(" << productos[3].unidades.top() << ")" << " | | " << productos[3].nombre << "(" << productos[3].unidades.top() << ")" << " |" << endl;
     cout << "|   " << productos[2].precio << "    | |    " << productos[3].precio << "  |" << endl;
     cout << "------------- ------------" << endl;
-    cout << "|    " << productos[4].codigo << "    | |    " << productos[5].codigo << "   |" << endl;
-    cout << "|    " << productos[4].nombre << "    | |   " << productos[5].nombre << "  |" << endl;
+    cout << "|    " << productos[4].codigo << "   | |    " << productos[5].codigo << "  |" << endl;
+    cout << "|   " << productos[4].nombre << "(" << productos[4].unidades.top() << ")" << "  | | " << productos[5].nombre << "(" << productos[5].unidades.top() << ")" << " |" << endl;
     cout << "|   " << productos[4].precio << "    | |    " << productos[5].precio << "  |" << endl;
     cout << "------------- ------------" << endl;
 }
@@ -56,12 +56,12 @@ void sacarUnidad(vector<Producto>& producto, int code){
 }
 
 void aumentarUnidades(vector<Producto>& producto, int codigo, int cantidad){
-
+    codigo = codigo - 1;
     // Iteración de productos tipo Producto para editar sus unidades
     for (int i = 0; i < cantidad; ++i) {
 
         // Mejor opción para agregar elementos a un stack durante ejecución
-        producto[codigo-1].unidades.emplace(i+1);
+        producto[codigo].unidades.emplace(producto[codigo].unidades.top()+1);
     }
 }
 
@@ -69,12 +69,12 @@ int main(){
 
     // Productos disponibles para venta
     vector<Producto> productos = {
-            {"Coca-Cola", "001",1500, stack<int>()},
-            {"Pepsi", "002",1600, stack<int>()},
-            {"Sprite", "003",2500, stack<int>()},
-            {"Fanta", "004",3000, stack<int>()},
-            {"Hit", "005",2000, stack<int>()},
-            {"Malta", "006",1250, stack<int>()},
+            {"Coca", "0001",1500, stack<int>()},
+            {"Pepsi", "0002",1600, stack<int>()},
+            {"Sprite", "0003",2500, stack<int>()},
+            {"Fanta", "0004",3000, stack<int>()},
+            {"Hit", "0005",2000, stack<int>()},
+            {"Malta", "0006",1250, stack<int>()},
     };
 
     // Llenado de la maquina
@@ -101,7 +101,7 @@ int main(){
             cin >> cantidadDeAumento;
 
             // Verifica que haya espacio para agregar unidades del producto
-            if ((cantidadDeAumento + productos[codigoProducto-1].unidades.size()) < 6){
+            if ((cantidadDeAumento + productos[codigoProducto-1].unidades.size()) <= 6){
                 aumentarUnidades(productos, codigoProducto, cantidadDeAumento);
             }else {
                 cout << "No hay espacio suficiente" << endl;
