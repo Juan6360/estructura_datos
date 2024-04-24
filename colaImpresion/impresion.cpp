@@ -7,7 +7,7 @@ using namespace std;
 using namespace std::chrono_literals;
 
 // Funcion responsable de la creacion de archivos
-void creacionDeArchivos(queue<string>& archivo){
+void creacionDeArchivos(queue<string>& archivo, const string& path){
 
     // Variable que almacena el nombre del archivo
     string nombre;
@@ -28,7 +28,7 @@ void creacionDeArchivos(queue<string>& archivo){
         cout << "Contenido: " << endl;
 
         fstream myFile;
-        myFile.open(nombre, ios::out); // Write
+        myFile.open(path+nombre, ios::out); // Write
         if (myFile.is_open()){
             while (true){
                 getline(cin, contenido);
@@ -45,14 +45,14 @@ void creacionDeArchivos(queue<string>& archivo){
 }
 
 // Funcion responsable de la impresion
-void impresion(queue<string>& archivo){
+void impresion(queue<string>& archivo, const string& path){
     // Loop que itera por todos los archivos
     while (!archivo.empty()) {
         fflush(stdin);
         string nombre = archivo.front();
         cout << "Titulo: " << nombre << endl;
 
-        ifstream myFile(nombre);
+        ifstream myFile(path+nombre);
         if (myFile.is_open()){
             char character;
             while (myFile.get(character)){
@@ -72,17 +72,19 @@ int main(){
     // Creacion de la cola de impresion
     queue<string> colaDeImpresion;
 
+    string path = "C:/Users/Usuario/Desktop/archivos/";
+
     while(true){
 
         // Creacion de los archivos a imprimir
-        creacionDeArchivos(colaDeImpresion);
+        creacionDeArchivos(colaDeImpresion, path);
 
         if (colaDeImpresion.empty()){
             break;
         }
 
         // Impresion de los archivos
-        impresion(colaDeImpresion);
+        impresion(colaDeImpresion, path);
 
     }
 }
