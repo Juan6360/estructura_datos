@@ -67,6 +67,12 @@ build CMakeFiles/CLion_code.dir/colaImpresion/impresion.cpp.obj: CXX_COMPILER__C
   OBJECT_DIR = CMakeFiles\CLion_code.dir
   OBJECT_FILE_DIR = CMakeFiles\CLion_code.dir\colaImpresion
 
+build CMakeFiles/CLion_code.dir/binary_tree/tree.cpp.obj: CXX_COMPILER__CLion_code_unscanned_Debug C$:/Users/Juan$ David/Desktop/CLion$ code/binary_tree/tree.cpp || cmake_object_order_depends_target_CLion_code
+  DEP_FILE = CMakeFiles\CLion_code.dir\binary_tree\tree.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\CLion_code.dir
+  OBJECT_FILE_DIR = CMakeFiles\CLion_code.dir\binary_tree
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CLion_code
@@ -75,7 +81,7 @@ build CMakeFiles/CLion_code.dir/colaImpresion/impresion.cpp.obj: CXX_COMPILER__C
 #############################################
 # Link the executable CLion_code.exe
 
-build CLion_code.exe: CXX_EXECUTABLE_LINKER__CLion_code_Debug CMakeFiles/CLion_code.dir/main.cpp.obj CMakeFiles/CLion_code.dir/maquinaDispensadora/maquinaDIspensadora.cpp.obj CMakeFiles/CLion_code.dir/colaImpresion/impresion.cpp.obj
+build CLion_code.exe: CXX_EXECUTABLE_LINKER__CLion_code_Debug CMakeFiles/CLion_code.dir/main.cpp.obj CMakeFiles/CLion_code.dir/maquinaDispensadora/maquinaDIspensadora.cpp.obj CMakeFiles/CLion_code.dir/colaImpresion/impresion.cpp.obj CMakeFiles/CLion_code.dir/binary_tree/tree.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CLion_code.dir
